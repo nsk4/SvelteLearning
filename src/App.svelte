@@ -7,6 +7,18 @@
     import { fade, fly } from 'svelte/transition';
     import spin from './lib/transitions/spin';
 
+    /* Action example */
+    /*
+    import longpress from './lib/actions/longpress';
+    let showButton = true;
+    let duration = 1000;
+    */
+    /* Tippy example */
+    /*
+    import tippy from './lib/actions/tippy';
+    let content;
+    */
+
     let showList = true;
     let todoList;
     let todos = null;
@@ -153,6 +165,23 @@
         </div>
     </div>
 {/if}
+
+<!-- Action example -->
+<!--
+<div>
+    <label><input type="range" bind:value={duration} max={4000} step={100} />{duration}ms</label>
+    <label><input type="checkbox" bind:checked={showButton} />Toggle</label>
+    {#if showButton}
+        <button use:longpress={{ duration }} on:longpress={() => alert('Pressed')}>Hello</button>
+    {/if}
+</div>
+-->
+
+<!-- Tippy example -->
+<!--
+<input bind:value={content} />
+<button use:tippy={{ content, placement: 'right', theme: 'light' }}>Button</button>
+-->
 
 <style>
 </style>
