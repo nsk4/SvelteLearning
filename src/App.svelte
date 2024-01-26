@@ -2,10 +2,12 @@
 
 <script>
     import { onMount, tick } from 'svelte';
-    import Button from './lib/Button.svelte';
     import TodoList from './lib/TodoList.svelte';
     import { v4 as uuid } from 'uuid';
+    import { fade, fly } from 'svelte/transition';
+    import spin from './lib/transitions/spin';
 
+    let showList = true;
     let todoList;
     let todos = null;
     let error = null;
@@ -46,7 +48,7 @@
         }).then(async (response) => {
             if (response.ok) {
                 const todo = await response.json();
-                todos = [...todos, { ...todo, id: uuid() }];
+                todos = [{ ...todo, id: uuid() }, ...todos];
                 todoList.clearInput();
             } else {
                 alert('An error has occured.');
@@ -87,8 +89,9 @@
                 completed: event.detail.value
             }),
             headers: { 'Content-type': 'application/json;charset=UTF-8' }
-        }).then((response) => {
+        }).then(async (response) => {
             if (response.ok) {
+                const updatedTodo = await response.json();
                 todos = todos.map((t) => {
                     if (t.id === event.detail.id) {
                         return { ...t, completed: event.detail.value };
@@ -104,24 +107,52 @@
     }
 </script>
 
-<!--
-{#if todos}
-    <h2>{todos.length} Todos</h2>
+<label>
+    <input type="checkbox" bind:checked={showList} />
+    Show/Hide list
+</label>
+{#if showList}
+    <!--<div transition:fade={{ duration: 700 }}>-->
+    <div transition:fade>
+        {#if todos}
+            <h2>
+                {#key todos.length}<span style:display="inline-block" in:fly|local={{ y: -10 }}
+                        >{todos.length}</span
+                    >{/key} Todos
+            </h2>
+        {/if}
+        <div style:max-width="800px">
+            <TodoList
+                {todos}
+                {error}
+                {isLoading}
+                {disabledItems}
+                disableAdding={isAdding}
+                scrollOnAdd="top"
+                bind:this={todoList}
+                on:addtodo={handleAddTodo}
+                on:removetodo={handleRemoveTodo}
+                on:toggletodo={handleToggleTodo}
+                let:todo
+            >
+                <!--
+        <div>
+            {todo.title}<input
+                disabled={disabledItems.includes(todo.id)}
+                on:input={(event) => {
+                    event.currentTarget.checked = todo.completed;
+                    handleToggleTodo(todo.id, !todo.completed);
+                }}
+                type="checkbox"
+                checked={todo.completed}
+            />
+        </div>
+        -->
+                <!--<svelte:fragment slot="title">dqwdqd</svelte:fragment>-->
+            </TodoList>
+        </div>
+    </div>
 {/if}
--->
-<div style:max-width="400px">
-    <TodoList
-        {todos}
-        {error}
-        {isLoading}
-        disableAdding={isAdding}
-        {disabledItems}
-        bind:this={todoList}
-        on:addtodo={handleAddTodo}
-        on:removetodo={handleRemoveTodo}
-        on:toggletodo={handleToggleTodo}
-    />
-</div>
 
 <style>
 </style>
