@@ -1,4 +1,10 @@
 :root {
-    background-color: black;
-    color: grey;
+    --backgroundColor: black;
+    --textColor: grey;
+}
+
+body {
+    background-color: var(--backgroundColor);
+    color: var(--textColor);
+    font-family: 'Montserrat', sans-serif;
 }
