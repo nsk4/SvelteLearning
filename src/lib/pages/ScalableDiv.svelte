@@ -32,7 +32,7 @@
     );
 </script>
 
-<h2>Home</h2>
+<h2>Scalable Div</h2>
 
 <div>
     <button

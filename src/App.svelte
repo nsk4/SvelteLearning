@@ -6,6 +6,8 @@
     import ScalableDiv from './lib/pages/ScalableDiv.svelte';
     import TippyAction from './lib/pages/TippyAction.svelte';
     import Head from './lib/Head.svelte';
+    import FormValidation from './lib/pages/FormValidation.svelte';
+    import KonvaWrapper from './lib/pages/KonvaWrapper.svelte';
 
     let page;
     function onRouteChange() {
@@ -16,10 +18,14 @@
             page = 'settings';
         } else if (path === '/todo') {
             page = 'todo';
-        } else if (path === '/todo') {
-            page = 'todo';
+        } else if (path === '/tippyaction') {
+            page = 'tippyaction';
         } else if (path === '/scalablediv') {
             page = 'scalablediv';
+        } else if (path === '/formvalidation') {
+            page = 'formvalidation';
+        } else if (path === '/konvawrapper') {
+            page = 'konvawrapper';
         } else {
             window.location.hash = '/';
         }
@@ -38,6 +44,8 @@
     <a href="#/todo">Todo</a>
     <a href="#/scalablediv">Scalable Div</a>
     <a href="#/tippyaction">Tippy Action</a>
+    <a href="#/formvalidation">Form Validation</a>
+    <a href="#/konvawrapper">Konva Wrapper</a>
 </nav>
 
 {#if page === 'home'}
@@ -50,6 +58,10 @@
     <ScalableDiv />
 {:else if page === 'tippyaction'}
     <TippyAction />
+{:else if page === 'formvalidation'}
+    <FormValidation />
+{:else if page === 'konvawrapper'}
+    <KonvaWrapper />
 {/if}
 
 <style>

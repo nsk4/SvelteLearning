@@ -106,6 +106,8 @@
     }
 </script>
 
+<h2>Todo</h2>
+
 <label>
     <input type="checkbox" bind:checked={showList} />
     Show/Hide list

@@ -16,6 +16,8 @@
     let content;
 </script>
 
+<h2>Tippy</h2>
+
 <!-- Action example -->
 <div>
     <label><input type="range" bind:value={duration} max={4000} step={100} />{duration}ms</label>
