@@ -8,6 +8,7 @@
     import Head from './lib/Head.svelte';
     import FormValidation from './lib/pages/FormValidation.svelte';
     import KonvaWrapper from './lib/pages/KonvaWrapper.svelte';
+    import Videos from './lib/pages/Videos.svelte';
 
     let page;
     function onRouteChange() {
@@ -26,6 +27,8 @@
             page = 'formvalidation';
         } else if (path === '/konvawrapper') {
             page = 'konvawrapper';
+        } else if (path === '/videos') {
+            page = 'videos';
         } else {
             window.location.hash = '/';
         }
@@ -46,6 +49,7 @@
     <a href="#/tippyaction">Tippy Action</a>
     <a href="#/formvalidation">Form Validation</a>
     <a href="#/konvawrapper">Konva Wrapper</a>
+    <a href="#/videos">Videos</a>
 </nav>
 
 {#if page === 'home'}
@@ -62,6 +66,8 @@
     <FormValidation />
 {:else if page === 'konvawrapper'}
     <KonvaWrapper />
+{:else if page === 'videos'}
+    <Videos />
 {/if}
 
 <style>
